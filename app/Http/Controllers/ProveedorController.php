@@ -31,12 +31,12 @@ class ProveedorController extends Controller
      */
     public function store(Request $request)
     {
-        Proveedore::create(
+        $proveedor = Proveedore::create(
             [
                 'nombre' => $request->nombre
             ]
         );
-        return $this->successResponse('Proveedor Creado Exitosamente', 201);
+        return $this->successResponse($proveedor, 201);
     }
 
     /**
@@ -45,9 +45,9 @@ class ProveedorController extends Controller
      * @param  \App\Proveedor $proveedor
      * @return \Illuminate\Http\Response
      */
-    public function show(Proveedore $proveedor)
+    public function show(Proveedore $proveedore)
     {
-
+        return $this->successResponse($proveedore, 200);
     }
 
     /**
@@ -60,7 +60,7 @@ class ProveedorController extends Controller
     public function update(Request $request, Proveedore $proveedore)
     {
         $proveedore->update([
-            'nombre' =>$request->nombre
+            'nombre' => $request->nombre
         ]);
         return $this->successResponse($proveedore, 200);
     }

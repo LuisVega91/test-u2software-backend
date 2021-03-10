@@ -17,8 +17,7 @@ class ProductoController extends Controller
     public function index()
     {
         $productos = Producto::all();
-
-        return $this->successResponse($productos,200);
+        return $this->successResponse($productos, 200);
     }
 
     /**
@@ -29,11 +28,11 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        Producto::create([
-            "nombre"=> $request->nombre,
-            "valor" => $request->valor
+        $producto = Producto::create([
+            "nombre" => $request->nombre,
+            "valor" => $request->valor,
         ]);
-        return $this->successResponse('Proveedor Creado Exitosamente', 201);
+        return $this->successResponse($producto, 201);
     }
 
     /**
@@ -44,7 +43,7 @@ class ProductoController extends Controller
      */
     public function show(Producto $producto)
     {
-        //
+        return $this->successResponse($producto, 200);
     }
 
     /**
@@ -57,7 +56,7 @@ class ProductoController extends Controller
     public function update(Request $request, Producto $producto)
     {
         $producto->update([
-            "nombre"=> $request->nombre,
+            "nombre" => $request->nombre,
             "valor" => $request->valor
         ]);
         return $this->successResponse($producto, 200);

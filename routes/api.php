@@ -17,11 +17,11 @@ Route::post('/refresh', 'Auth\AuthController@refresh');
 
 Route::middleware('auth:api')->group(function () {
 
-    Route::post('/logout', 'Api\AuthController@logout');
+    Route::post('/logout', 'Auth\AuthController@logout');
 });
 
-Route::resource('/proveedores','ProveedorController')->except('show');
-Route::resource('/productos','ProductoController')->except('show');
-Route::resource('/inventario','InventarioController')->except('show');
+Route::resource('/proveedores','ProveedorController');
+Route::resource('/productos','ProductoController');
+Route::resource('/inventario','InventarioController');
 Route::resource('/detallePedido','DetallesPedidoController')->except('show');
 Route::resource('/pedidos','PedidoController')->except('show');

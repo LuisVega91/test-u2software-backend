@@ -29,12 +29,12 @@ class InventarioController extends Controller
      */
     public function store(Request $request)
     {
-        Inventario::create([
+        $inventarios = Inventario::create([
             "producto_id" => $request->producto_id,
             "proveedor_id" => $request->proveedor_id,
             "cantidad" => $request->cantidad
         ]);
-        return $this->successResponse('Inventario Creado Exitosamente', 201);
+        return $this->successResponse($inventarios, 201);
     }
 
     /**
@@ -45,7 +45,7 @@ class InventarioController extends Controller
      */
     public function show(Inventario $inventario)
     {
-
+        return $this->successResponse($inventario, 200);
     }
 
     /**
