@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::resource('/proveedores','ProveedorController')->except('show');
+Route::resource('/productos','ProductoController')->except('show');
+Route::resource('/inventario','InventarioController')->except('show');
+Route::resource('/detallePedido','DetallesPedidoController')->except('show');
+Route::resource('/pedidos','PedidoController')->except('show');
