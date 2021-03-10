@@ -81,6 +81,6 @@ class AuthController extends Controller
 
         return $this->successResponse('Logged out successfully', 200);
     }
-    
+
 
 }
