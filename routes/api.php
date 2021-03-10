@@ -12,6 +12,8 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::post('/login', 'Auth\AuthController@login');
+Route::post('/refresh', 'Auth\AuthController@refresh');
 
 Route::resource('/proveedores','ProveedorController')->except('show');
 Route::resource('/productos','ProductoController')->except('show');
