@@ -24,4 +24,4 @@ Route::resource('/proveedores','ProveedorController');
 Route::resource('/productos','ProductoController');
 Route::resource('/inventario','InventarioController');
 Route::resource('/detallePedido','DetallesPedidoController')->except('show');
-Route::resource('/pedidos','PedidoController')->except('show');
+Route::resource('/pedidos','PedidoController');
