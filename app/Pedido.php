@@ -14,4 +14,9 @@ class Pedido extends Model
         'entrego',
         'total'
     ];
+
+    public function detalle()
+    {
+        return $this->hasMany(DetallesPedido::class)->with(['producto', 'inventario']);
+    }
 }

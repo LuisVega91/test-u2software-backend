@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DetallesPedido;
 use App\Pedido;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
@@ -14,10 +15,17 @@ class PedidoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $listaPedidos= Pedido::all();
-        return $this->successResponse($listaPedidos,200);
+        $listaPedidos = [];
+        if ($request->estado == "pendientes") {
+            $listaPedidos = Pedido::where('entrego', false)->with('detalle')->get();
+        } else if ($request->estado == "entregados") {
+            $listaPedidos = Pedido::where('entrego', true)->with('detalle')->get();
+        } else {
+            $listaPedidos = Pedido::with('detalle')->get();
+        }
+        return $this->successResponse($listaPedidos, 200);
     }
 
     /**
@@ -29,9 +37,9 @@ class PedidoController extends Controller
     public function store(Request $request)
     {
         Pedido::create([
-            'referencia'=>$request->referencia,
-            'entrego' =>$request->entrego,
-            'total' =>$request->total
+            'referencia' => $request->referencia,
+            'entrego' => $request->entrego,
+            'total' => $request->total
         ]);
         return $this->successResponse('Pedido Creado Exitosamente', 201);
     }
@@ -42,9 +50,11 @@ class PedidoController extends Controller
      * @param  \App\Pedido  $pedido
      * @return \Illuminate\Http\Response
      */
-    public function show(Pedido $pedido)
+    public function show($pedido)
     {
-        //
+        $pedido = Pedido::where('id', $pedido)->with('detalle')->first();
+
+        return $this->successResponse($pedido, 201);
     }
 
     /**
@@ -56,11 +66,12 @@ class PedidoController extends Controller
      */
     public function update(Request $request, Pedido $pedido)
     {
-      $pedido->update([
-          'referencia'=>$request->referencia,
-          'entrego' =>$request->entrego,
-          'total' =>$request->total
-      ]);
+
+        $pedidoIn =[];
+        $request->referencia ? $pedidoIn['referencia'] = $request->referencia: null;
+        $request->entrego ? $pedidoIn['entrego'] = $request->entrego: null;
+        $request->total ? $pedidoIn['total'] = $request->total: null;
+        $pedido->update($pedidoIn);
         return $this->successResponse($pedido, 200);
     }
 

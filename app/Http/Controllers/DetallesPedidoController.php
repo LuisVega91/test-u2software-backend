@@ -16,7 +16,7 @@ class DetallesPedidoController extends Controller
      */
     public function index()
     {
-        $detallesPedido =DetallesPedido::with(['producto','pedido'])->get();
+        $detallesPedido =DetallesPedido::with(['producto','inventario'])->get();
         return $this->successResponse($detallesPedido,200);
     }
 

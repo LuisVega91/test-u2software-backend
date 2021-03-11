@@ -22,8 +22,8 @@ class DetallesPedido extends Model
         return $this->hasOne(Producto::class, 'id','producto_id');
     }
 
-    public function pedido()
+    public function inventario()
     {
-        return $this->hasOne(Pedido::class, 'id','pedido_id');
+        return $this->hasOne(Inventario::class, 'producto_id','producto_id')->with('proveedor');
     }
 }
